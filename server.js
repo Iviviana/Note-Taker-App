@@ -4,7 +4,7 @@ const routes=require('./routes/routes');
 const apiRoutes=require("./routes/apiRoutes");
 
 //The port used by our system
-const PORT=3001;
+const PORT=process.env.PORT || 3001;
 //const PORT=process.env.PORT for heroku
 
 //Initializing app variable by setting it to the value of express

@@ -1,6 +1,7 @@
 //Required dependencies
 const router=require('express').Router();
 const store=require('../db/store');
+const notes=require('../db/db.json');
 
 router.get("/notes", (req,res)=>{
     //we call `getNotes` again so we can send to the frontend
@@ -10,7 +11,12 @@ router.get("/notes", (req,res)=>{
 });
 
 //For a new note
-router.post("/notes");
+router.post("/notes", (req,res)=>{
+    let newNote=req.body;
+    notes.push(newNote);
+
+    return console.log("Saved: "+ newNote.title);
+});
 
 //Delete an existing note
 router.delete("/notes/id:");
