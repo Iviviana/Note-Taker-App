@@ -1,6 +1,6 @@
 const util=require('util');
 const fs=require('fs');
-
+const notes=require('./db.json')
 //We're making readFile into an asyncronous function by making it a promise; meaning it has to finish reading the `readFile` before moving on to anything else.
 const readFileAsync=util.promisify(fs.readFile);
 
@@ -18,6 +18,15 @@ class Store {
             return notes;
         })
     };
+    
+    updateDb() {
+        fs.writeFile("db/db.json",JSON.stringify(notes,'\t'),err=>{
+            if(err) throw err;
+            return;
+    
+        });
+    };
+   
 };
 
 module.exports=new Store();
