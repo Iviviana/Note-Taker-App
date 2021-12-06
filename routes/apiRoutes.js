@@ -13,10 +13,13 @@ router.get("/notes", (req,res)=>{
 
 //For a new note
 router.post("/notes", (req,res)=>{
+  
   let newNote=req.body;
-  notes.push(newNote);
-  store.updateDb();
-  return console.log("Saved:" + newNote.title);
+  newNote.id=uniqid();
+  
+  
+  store.saveNote(newNote);
+  return res.json(newNote);
 });
 
 //Delete an existing note

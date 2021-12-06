@@ -1,6 +1,6 @@
 const util=require('util');
 const fs=require('fs');
-const notes=require('./db.json')
+
 //We're making readFile into an asyncronous function by making it a promise; meaning it has to finish reading the `readFile` before moving on to anything else.
 const readFileAsync=util.promisify(fs.readFile);
 
@@ -15,16 +15,22 @@ class Store {
         //the `this` is letting us access the `read()` function since it's not in the scope
         return this.read().then((notes)=> {
             console.log(notes);
-            return notes;
+            return JSON.parse(notes||"[]");
         })
     };
     
-    updateDb() {
-        fs.writeFile("db/db.json",JSON.stringify(notes,'\t'),err=>{
-            if(err) throw err;
-            return;
-    
-        });
+    saveNote(note) {
+        this.read().then(noteList=>{
+            const notes=JSON.parse(noteList||"[]");
+            notes.push(note);
+
+            fs.writeFile("db/db.json",JSON.stringify(notes),err=>{
+                if(err) throw err;
+                return;
+        
+            });
+        })
+        
     };
    
 };
