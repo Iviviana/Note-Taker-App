@@ -23,7 +23,13 @@ router.post("/notes", (req,res)=>{
 });
 
 //Delete an existing note
-// router.delete("/notes/id:");
+router.delete("/notes/:id",(req,res)=>{
+    
+    //console.log(req.params.id)
+
+    store.deleteNote(req.params.id)
+    // return res.json({ ok: true });
+});
 
 
 
